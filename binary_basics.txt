@@ -21,6 +21,23 @@ Convert 203 base 10 to binary.
 
 count all 1s. we get 2^7+2^6+2^3+2^1+2^0 = 128+64+8+2+1 = 203.
 
+--------------------------------------------------------------
+
+1- byte equals 8 bit. 
+In an 32 bit OS 1 int variable reserves 32 bit which means 4 byte it can process at a time.
+
+storing numbers in the int variable which has 4 byte other means which can hold the maximum permutation of 32 bits binary representation of any number.
+
+eg) the max of INT visual studio C# is 2,147,483,647 when convert to binary it is 1111111111111111111111111111111. so that much combination.
+
+More..
+
+if we have two bits, we can represent four possible unique combinations(00, 01, 10, 11). similarly if we have three bits we can represent 8 combinations.
+In general, with n bits we can represent 2^n unique combinations. 8 bits gives us 2^8 = 256 combinations, which is more than enough for our alphabet representation.
+We call a group of 8 bits a byte. guess how big a C char variable is?Once byte.
+For more details and information about binary and ASCII visit this below site.
+
 ref: http://www.bottomupcs.com/
+Chapter 2. Binary and basics of computing.
 
               
