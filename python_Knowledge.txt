@@ -1,0 +1,89 @@
+Uses of Composition over inheritance
+
+http://masnun.com/2016/04/19/composition-over-inheritance.html
+
+
+Diamond problem in multiple inheritance and solution.
+
+http://www.aizac.info/a-solution-to-the-diamond-problem-in-python/
+
+https://www.toptal.com/python/python-design-patterns
+
+regarding polymorphism http://blog.thedigitalcatonline.com/blog/2014/08/21/python-3-oop-part-4-polymorphism/
+
+Duck typing or automatic interface, 
+dependency injection.
+Diamond problem in multiple inheritance and how python resolves it,
+GOF
+favor Object Composition over inheritance and why.
+facade pattern
+singleton pattern
+adapter pattern
+decorator pattern
+Abstract base classes.
+
+
+1.Duck typing or automatic interface using dependency injection example.
+
+class engine:
+	def turn_on(self):
+		print "Engine has turned on"
+
+class Car:
+	def __init__(self, engine):
+		self.engine = engine
+
+	def run():
+		self.engine.turn_on()
+
+If __name__="main":
+	objcar = Car(engine())
+	objcar.run()
+
+The above code is the classical example of dependency injection mechanism. Ducktyping is followed in the code by without specifying the type 
+of the object(engine class) inside the constructor of car class. Which ever the object we pass into the car constructor and if it has the 
+corresponding method written inside the car class run function it fires otherwise throws error.
+
+eg: java code:
+
+interface IEngine {
+    void turnOn();
+}
+public class EngineV1 implements IEngine {
+    public void turnOn() {
+        // do something here
+    }
+}
+public class Car {
+    public Car(IEngine engine) {
+       this.engine = engine;
+    }
+    public void run() {
+        this.engine.turnOn();
+    }
+}
+
+2. Dependency Injection.
+
+From the above code the function run from class car executes the function if it is dependent to the passed object engine from the constructor.
+
+
+3. Polymorphism.
+
+The ability of an object to adapt the code to the type of the data it is processing. Means same functionality or code have more than one form depending on the data it is dealing with.
+
+for eg: 1+5 gives 6, mango+tree gives mangotree, [3,4]+[5,6] gives [3,4,5,6] so the + operator has more than one form based on the data.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
