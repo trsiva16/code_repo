@@ -40,11 +40,11 @@ If __name__="main":
 	objcar = Car(engine())
 	objcar.run()
 
-The above code is the classical example of dependency injection mechanism. Ducktyping is followed in the code by without specifying the type 
+The above code is the classical example of dependency injection mechanism with polymorphic behaviour. Ducktyping is followed in the code by without specifying the type 
 of the object(engine class) inside the constructor of car class. Which ever the object we pass into the car constructor and if it has the 
 corresponding method written inside the car class run function it fires otherwise throws error.
 
-eg: java code:
+eg: java code: Without Ducktyping Dependency injection with interface approach.
 
 interface IEngine {
     void turnOn();
@@ -65,12 +65,84 @@ public class Car {
 
 2. Dependency Injection.
 
-From the above code the function run from class car executes the function if it is dependent to the passed object engine from the constructor.
+Injecting the dependency into the object which requires it rather than creating the dependency inside the object which requires it is called dependency injection.
 
+eg: In the following java example the Client class contains a service member that is initialized by the client constructor.
+The client controls which implementation of service is used and controls its construction. In this situation, the client said to have the hard coded dependency on example service.
+
+Three types of dependency injection
+-----------------------------------
+constructor injection: the dependencies are provided through a class constructor.
+
+setter injection: the client exposes a setter method that the injector uses to inject the dependency.
+
+interface injection: the dependency provides an injector method that will inject the dependency into any client passed to it. Clients must implement an interface that exposes a setter method that accepts the dependency.
+
+Without dependency injection
+----------------------------
+
+// An example without dependency injection
+public class Client {
+    // Internal reference to the service used by this client
+    private ExampleService service;
+
+    // Constructor
+    Client() {
+        // Specify a specific implementation in the constructor instead of using dependency injection
+        service = new ExampleService();
+    }
+
+    // Method within this client that uses the services
+    public String greet() {
+        return "Hello " + service.getName();
+    }
+}
+
+In this the client class has hardcoded the dependency on Exampleservice class.
+
+With dependency injection without interface approach.
+----------------------------------------------------
+
+// An example without dependency injection
+public class Client {
+    // Internal reference to the service used by this client
+    private ExampleService service;
+
+    // Constructor
+    Client(ExampleService service) {
+        // Specify a specific implementation in the constructor instead of using dependency injection
+        this.service = service;
+    }
+
+    // Method within this client that uses the services
+    public String greet() {
+        return "Hello " + this.service.getName();
+    }
+}
+
+With dependency injection with interface approach.
+-------------------------------------------------
+
+interface IEngine {
+    void turnOn();
+}
+public class EngineV1 implements IEngine {
+    public void turnOn() {
+        // do something here
+    }
+}
+public class Car {
+    public Car(IEngine engine) {
+       this.engine = engine;
+    }
+    public void run() {
+        this.engine.turnOn();
+    }
+}
 
 3. Polymorphism.
 
-The ability of an object to adapt the code to the type of the data it is processing. Means same functionality or code have more than one form depending on the data it is dealing with.
+The ability of an object to adapt the code to the type of the data it is processing. Means same functionality or code have more than one form depending on the data it is dealing with. Dependency injection systems are reliant on polymorphism in the sense of duck typing(python syntax).
 
 for eg: 1+5 gives 6, mango+tree gives mangotree, [3,4]+[5,6] gives [3,4,5,6] so the + operator has more than one form based on the data.
 
