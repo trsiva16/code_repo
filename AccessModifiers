@@ -1,0 +1,180 @@
+Protected:
+---------
+The members which are declared as protected can only accessible through the derived class object.
+
+It cant be accessible through Direct class object.
+
+Class A
+{
+  protected int X = 123;
+  
+  Protected String Display()
+  {
+    return "You are Correct";  
+  }
+  
+  public String Wrong()
+  {  
+    return "You are Wrong";  
+  }
+  
+  private String Truth()
+  {  
+    return "You are Wrong";  
+  }
+  
+}
+
+Class B : A
+{
+  
+  static void Main(String[] args)
+  {  
+      B obj = new B();      
+      B.X; //Accessible..
+      B.Wrong(); //Accessible..
+      B.Truth(); //Not Accessible..  
+      A obj1 = new obj1();
+      obj1.Display() // Error cant access its protected it can be only acessible through derived class.
+  }
+}
+
+Private Protected:
+------------------
+The members which are declared as private protected can be accessible through the derived class anywhere inside the accembly.
+Members cant be directly accessed through the created base object.
+
+The members cant be accessed through derived class from another accembly.
+
+Assembly 1: Engine.cs 
+
+namespace Engines
+{
+  class Engine
+  {
+    private protected int EngineModelNo = 456;
+    
+    private protected int DisplayEngineNo()
+    {
+      return EngineModelNo;    
+    }
+    
+    class Rack : Engine
+    {
+      static void Main(String[] args)
+      {
+        Engine obj = new Engine();
+        obj.DisplayEngineNo() // Not Accessible..
+        obj.EngineModelNo // Not Accessible..      
+        
+        Rack obj1 = new Rack();
+        obj1.DisplayEngineNo() // Accessible..
+        obj1.EngineModelNo // Accessible..      
+      }            
+    }    
+  }
+}
+
+Assembly 2: EngineModel.cs
+Added the reference of Engine.dll
+
+namespace EngineModel
+{
+  class EngineModel : Engines.Engine
+  {
+      static void Main(String[] args)
+      {
+          Engines.Engine obj1 = new Engines.Engine();
+          obj1.DisplayEngineNo() // Not Accessible..
+          obj1.EngineModelNo // Not Accessible..
+          
+          EngineModel obj = new EngineModel();
+          obj.DisplayEngineNo() // Not Accessible..
+          obj.EngineModelNo // Not Accessible..            
+      }          
+  }
+}
+
+internal:
+---------
+The members which are declared as internal can be only access inside the assembly.
+
+Assembly: Engine.cs (after complile Engine.dll)
+
+namespace Engine
+{
+  class Engine
+  {
+    internal int vbsEngine = 100;
+  }
+  
+  class EngineModel
+  {
+    static void Main(String[] args)
+    {
+      Engine obj = new Engine();
+      obj.vbsEngine = 200; //Accessible    
+    }  
+  }
+}
+
+Protected internal:
+------------------
+The members which are declared as protectd internal can be accessed anywhere inside the assembly which created the class, inside any type. It also accessible through the derived class
+located in another assembly only access through the derived class object. 
+
+It cant be accessible from another assembly through Direct. (Protected behaviour).
+
+Assembly 1: Engine.cs 
+
+namespace Engines
+{
+  class Engine
+  {
+    protected internal int EngineModelNo = 456;
+    
+    protected internal int DisplayEngineNo()
+    {
+      return EngineModelNo;    
+    }
+    
+    class Rack
+    {
+      static void Main(String[] args)
+      {
+        Engine obj = new Engine();
+        obj.DisplayEngineNo() // Accessible..
+        obj.EngineModelNo // Accessible..      
+      }            
+    }
+    
+  }
+}
+
+Assembly 2: EngineModel.cs
+Added the reference of Engine.dll
+
+namespace EngineModel
+{
+  class EngineModel : Engines.Engine
+  {
+      static void Main(String[] args)
+      {
+          Engines.Engine obj1 = new Engines.Engine();
+          obj1.DisplayEngineNo() // Not Accessible..
+          obj1.EngineModelNo // Not Accessible..
+          
+          EngineModel obj = new EngineModel();
+          obj.DisplayEngineNo() // Accessible..
+          obj.EngineModelNo // Accessible..            
+      }          
+  }
+}
+
+
+
+
+
+
+
+
