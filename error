@@ -1,0 +1,89 @@
+        public static void Main(string[] args)
+        {
+            
+
+            List<string> input = new List<string> { "aab","aac" };
+            findStrings(input);
+
+        }
+
+static void findStrings(List<string> input)
+        {
+            String alph = "abcdefghijklmnopqrstuvwxyz";
+            int LongestSubstringlen = 0;
+            List<string> finalOut = new List<string>();
+
+            List<string> output = new List<string>();
+            for (int i = 0; i < input.Count; i++)
+            {
+                List<string> newstr = new List<string>();
+                string strOcc = input[i];
+                for (int j = 0; j < strOcc.Length; j++)
+                {
+                    output.Add(strOcc[j].ToString());
+                }
+                newstr.Add(strOcc);
+                getSubstrings(newstr, ref output, ref LongestSubstringlen);
+                output.Add(strOcc);
+            }
+
+
+            for (int j = 0; j < output.Count - 1; j++)
+            {
+                for (int k = j + 1; k < output.Count; k++)
+                {
+                    if (output[j] == output[k])
+                    {
+                        output.RemoveAt(k);
+                    }
+                    else if (Isgreaterthan(output[j], output[k], alph))
+                    {
+                        string temp = output[j];
+                        output[j] = output[k];
+                        output[k] = temp;
+                    }
+                }
+            }
+
+
+            for (int r = 0; r < alph.Length; r++)
+            {
+                for (int q = 1; q <= LongestSubstringlen; q++)
+                {
+                    for (int x = 0; x < output.Count; x++)
+                    {
+                        if ((output[x])[0] == alph[r] && output[x].Length == q)
+                        {
+                            finalOut.Add(output[x]);
+                        }
+                    }                    
+                }
+            }
+
+
+       }
+
+        static void getSubstrings(List<string> lstSubstr, ref List<string> output, ref int LongestSubstringlen)
+        {
+            List<string> newSbtrlist = new List<string>();
+            for (int i = 0; i < lstSubstr.Count; i++)
+            {
+                string frst = lstSubstr[i].Substring(0, lstSubstr[0].Length - 1);
+                string scnd = lstSubstr[i].Substring(1, lstSubstr[0].Length-1);
+
+                newSbtrlist.Add(frst);
+                newSbtrlist.Add(scnd);
+
+                output.Add(frst);
+                output.Add(scnd);
+            }
+
+            if (newSbtrlist[0].Length > LongestSubstringlen)
+                LongestSubstringlen = newSbtrlist[0].Length+1;
+
+            if (newSbtrlist[0].Length > 2)
+            {
+                getSubstrings(newSbtrlist, ref output, ref LongestSubstringlen);
+
+            }
+        }
