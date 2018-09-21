@@ -54,7 +54,7 @@ namespace ConsoleApplication1
         }
 
 
-        public void printPreorder(BNode node)
+      //In Complete  public void printPreorder(BNode node)
         {
             if (node != null)
             {
