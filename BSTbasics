@@ -1,0 +1,143 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace ConsoleApplication1
+{
+    class BinarySearchTree
+    {
+        public BNode root = null;
+
+        public BNode insertBnode(int data, BNode currNodes)
+        {
+            if (currNodes == null)
+            {
+                currNodes = new BNode(data);
+            }
+            else if (data > currNodes.data)
+            {
+                currNodes.right = insertBnode(data, currNodes.right);
+            }
+            else if (data < currNodes.data)
+            {
+                currNodes.left = insertBnode(data, currNodes.left);
+            }
+            return currNodes;
+        }
+
+        public void insert(int data)
+        {
+            this.root = insertBnode(data, this.root);
+        }
+
+        public void inorderTraversal(BNode node)
+        {
+            if (node != null)
+            {
+                inorderTraversal(node.left);
+                Console.WriteLine(node.data);
+                if (node.right != null)
+                {
+                    inorderTraversal(node.right);                    
+                }
+            }
+            else
+            {
+                return;
+            }
+        }
+
+
+        public void printPreorder(BNode node)
+        {
+            if (node != null)
+            {
+                Console.WriteLine(node.data.ToString() + ",");
+
+                if (node.left != null)
+                {
+                    printPreorder(node.left);
+
+                    if (node.right != null)
+                    {
+                        printPreorder(node.right);
+                    }
+                }
+            }
+            else
+            {
+                return;
+            }
+        }
+
+
+        public void printPostOrder(BNode node)
+        {
+            if (node != null)
+            {
+                printPostOrder(node.left);
+                
+                Console.WriteLine(node.data);
+               
+                if (node.right != null)
+                {
+                    printPostOrder(node.right);
+                }
+            }
+            else
+            {
+                return;
+            }
+        }        
+        
+    }
+
+    class BNode
+    {
+        public BNode left;
+        public BNode right;
+        public int data;
+        public bool isvisited = false;
+
+
+        public BNode(int data)
+        {
+            this.data = data;
+            left = null;
+            right = null;
+        }
+    }
+
+    class process
+    {
+
+        public static void Main(String[] args)
+        {
+            BinarySearchTree objBinarySearch = new BinarySearchTree();
+            objBinarySearch.insert(25);
+            objBinarySearch.insert(15);
+            objBinarySearch.insert(10);
+            objBinarySearch.insert(4);
+            objBinarySearch.insert(12);
+            objBinarySearch.insert(22);
+            objBinarySearch.insert(18);
+            objBinarySearch.insert(24);
+            objBinarySearch.insert(50);
+            objBinarySearch.insert(35);
+            objBinarySearch.insert(31);
+            objBinarySearch.insert(44);
+            objBinarySearch.insert(70);
+            objBinarySearch.insert(66);
+            objBinarySearch.insert(90);
+
+            objBinarySearch.printPreorder(objBinarySearch.root);
+            Console.ReadLine();
+
+            //objBinarySearch.inorderTraversal(objBinarySearch.root);
+            //Console.ReadLine();
+
+        }
+    }
+
+}
